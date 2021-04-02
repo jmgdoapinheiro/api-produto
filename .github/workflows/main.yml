@@ -64,6 +64,7 @@ jobs:
       - name: Deploy Api
         uses: Azure/k8s-deploy@v1.3
         with:
+          images: '2374/api-produto:${{ github.run_number }}'
           # Path to the manifest files which will be used for deployment.
           manifests: |
             k8s/api/deployment.yaml
