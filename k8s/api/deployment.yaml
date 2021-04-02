@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  strategy:
+    type: RollingUpdate
+    RollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: "25%"
+  replicas: 10
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+    ## liberacao do acesso as metricas da api com annotations
+    ## https://artifacthub.io/packages/helm/prometheus-community/prometheus
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: 2374/api-produto:v1
+          ports:
+          - containerPort: 8080
+          env:
+            - name: MONGODB_URI
+              value: mongodb://mongouser:mongopwd@mongodb-service:27017/admin
