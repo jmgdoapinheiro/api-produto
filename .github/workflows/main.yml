@@ -39,8 +39,8 @@ jobs:
           context: ./src
           file: ./src/Dockerfile
           tags: |
-            jmgdoapinheiro/api-produto:latest
-            jmgdoapinheiro/api-produto:${{ github.run_number }}
+            2374/api-produto:latest
+            2374/api-produto:${{ github.run_number }}
           push: true
             
             
